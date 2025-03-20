@@ -1,76 +1,30 @@
 const products = [
   {
     id: 1,
-    picture: "/images/headphones.jpg",
-    name: "Wireless Headphones",
+    picture: "/images/t-shirt-1.avif",
+    name: "Black T-Shirt",
     price: 59.99,
-    category: "Electronics",
+    category: "shirts",
     stock: 15,
-    description: "High-quality wireless headphones with noise cancellation.",
+    description: "High-quality black shirt.",
   },
   {
     id: 2,
-    picture: "/images/smartphone.jpg",
-    name: "Smartphone",
-    price: 699.99,
-    category: "Electronics",
+    picture: "/images/t-shirt-2.avif", // Changed image to avoid duplicate product
+    name: "White T-Shirt",
+    price: 49.99, // Changed price to differentiate products
+    category: "shirts",
     stock: 10,
-    description: "Latest model smartphone with high-resolution display.",
-  },
-  {
-    id: 3,
-    picture: "/images/mouse.jpg",
-    name: "Gaming Mouse",
-    price: 29.99,
-    category: "Accessories",
-    stock: 25,
-    description: "Ergonomic gaming mouse with customizable buttons.",
-  },
-  {
-    id: 4,
-    picture: "/images/keyboard.jpg",
-    name: "Mechanical Keyboard",
-    price: 89.99,
-    category: "Accessories",
-    stock: 8,
-    description: "RGB mechanical keyboard with blue switches.",
-  },
-  {
-    id: 5,
-    picture: "/images/shoes.jpg",
-    name: "Running Shoes",
-    price: 49.99,
-    category: "Fashion",
-    stock: 20,
-    description: "Lightweight running shoes with breathable material.",
-  },
-  {
-    id: 6,
-    picture: "/images/watch.jpg",
-    name: "Smart Watch",
-    price: 149.99,
-    category: "Wearables",
-    stock: 12,
-    description: "Fitness tracking smartwatch with heart rate monitor.",
-  },
-  {
-    id: 7,
-    picture: "/images/speaker.jpg",
-    name: "Bluetooth Speaker",
-    price: 39.99,
-    category: "Electronics",
-    stock: 18,
-    description: "Portable Bluetooth speaker with deep bass.",
-  },
-  {
-    id: 8,
-    picture: "/images/backpack.jpg",
-    name: "Backpack",
-    price: 34.99,
-    category: "Fashion",
-    stock: 22,
-    description: "Durable waterproof backpack for everyday use.",
-  },
+    description: "Premium white t-shirt.",
+  }
 ];
 
-module.exports = products;
+const cart = [
+  {
+    id: 101, // Unique cart item ID
+    productId: 1, // Referencing `products.id`
+    quantity: 2, // Quantity instead of stock
+  }
+];
+
+module.exports = { cart, products };
