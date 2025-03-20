@@ -66,10 +66,20 @@ const addToCart = (req, res) => {
   }
 };
 
+const editCartItem = (req,res)=>{
+
+
+}
+const deleteCartItems = (req,res)=>{
+
+}
+
 
 
 module.exports = {
   getAllProducts,
   getProductById,
-  addToCart
+  addToCart,
+  deleteCartItems,
+  editCartItem
 };
