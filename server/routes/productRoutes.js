@@ -4,9 +4,10 @@ const {
   getAllProducts,
   getProductById,
   addToCart,
-  deleteCartItems,
-  editCartItem
-} = require('../controllers/productControllers');
+  editCartItemQuantity,
+  deleteCartItemById,
+  deleteAllCartItems,
+}= require('../controllers/productControllers');
 
 router.get('/products', getAllProducts);
 
@@ -17,9 +18,11 @@ router.get('/products/:id', getProductById);
 router.post('/addToCart', addToCart);
 
 // Edit cart item (use PUT or PATCH for updates)
-router.put('/editCartItem/:id', editCartItem);
+router.put('/editCartItemQuantity/:id', editCartItemQuantity);
 
 // Delete cart items (use DELETE for removal)
-router.delete('/deleteCartItems', deleteCartItems);
+router.delete('/deleteAllCartItems', deleteAllCartItems);
+
+router.delete('/deleteCartItem/:id', deleteCartItemById)
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const { cart, products } = require("../config/db");
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 
 const getAllProducts = async (req, res) => {
   try {
@@ -12,7 +12,7 @@ const getAllProducts = async (req, res) => {
 
 const getProductById = (req, res) => {
   const { id } = req.params;
-  const product = products.find(product => product.id === Number(id));
+  const product = products.find((product) => product.id === Number(id));
 
   if (!product) {
     return res.status(404).json({ error: "Product ID not found" });
@@ -23,42 +23,27 @@ const getProductById = (req, res) => {
 
 // Add to cart
 const addToCart = (req, res) => {
-  const { id } = req.body; // Get productId from request body
-  const product = products.find(p => p.id === Number(id));
+  const { id } = req.body;
+  const product = products.find((p) => p.id === Number(id));
 
   if (!product) {
     return res.status(404).json({ success: false, msg: "Product not found" });
   }
 
   try {
-    // Check if product already exists in the cart
-    const cartItem = cart.find(item => item.productId === Number(id));
+    const cartItem = cart.find((item) => item.productId === Number(id));
 
     if (cartItem) {
-      cartItem.quantity += 1; // Increase quantity
+      cartItem.quantity += 1;
     } else {
       cart.push({
-        id: uuidv4(), // Generate a unique cart item ID
-        productId: product.id, // Store only productId
-        quantity: 1 // Default quantity
+        id: uuidv4(), // Unique cart item ID
+        productId: product.id,
+        quantity: 1,
       });
     }
 
-    // Retrieve full cart details with product info
-    const fullCartDetails = cart.map(cartItem => {
-      const itemProduct = products.find(p => p.id === cartItem.productId);
-      return {
-        id: cartItem.id,
-        quantity: cartItem.quantity,
-        product: itemProduct // Attach full product details
-      };
-    });
-
-    res.json({
-      success: true,
-      msg: "Item added to cart",
-      cart: fullCartDetails // Send full cart with product details
-    });
+    res.json({ success: true, msg: "Item added to cart", cart: getCartDetails() });
 
   } catch (error) {
     console.error(error);
@@ -66,20 +51,63 @@ const addToCart = (req, res) => {
   }
 };
 
-const editCartItem = (req,res)=>{
+// Edit Cart Item Quantity
+const editCartItemQuantity = (req, res) => {
+  const { id, change } = req.body;
+  const cartItem = cart.find((item) => item.id === id);
 
+  if (!cartItem) {
+    return res.status(404).json({ success: false, msg: "Cart item not found" });
+  }
 
-}
-const deleteCartItems = (req,res)=>{
+  const newQuantity = cartItem.quantity + Number(change);
+  if (newQuantity < 1) {
+    return res.json({ success: false, msg: "Quantity cannot be less than 1" });
+  }
 
-}
+  cartItem.quantity = newQuantity;
 
+  res.json({ success: true, msg: "Cart item updated", cart: getCartDetails() });
+};
 
+// Delete a specific cart item by its cart ID
+const deleteCartItemById = (req, res) => {
+  const { id } = req.params; // Get cart item ID from request params
+  const index = cart.findIndex((item) => item.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ success: false, msg: "Cart item not found" });
+  }
+
+  cart.splice(index, 1); // Remove item from cart
+
+  res.json({ success: true, msg: "Item removed from cart", cart: getCartDetails() });
+};
+
+// Delete all items from the cart
+const deleteAllCartItems = (req, res) => {
+  cart.length = 0; // Clear all items from the cart
+
+  res.json({ success: true, msg: "All items removed from cart", cart });
+};
+
+// Helper function to get full cart details with product info
+const getCartDetails = () => {
+  return cart.map((cartItem) => {
+    const itemProduct = products.find((p) => p.id === cartItem.productId);
+    return {
+      id: cartItem.id,
+      quantity: cartItem.quantity,
+      product: itemProduct,
+    };
+  });
+};
 
 module.exports = {
   getAllProducts,
   getProductById,
   addToCart,
-  deleteCartItems,
-  editCartItem
+  editCartItemQuantity,
+  deleteCartItemById,
+  deleteAllCartItems,
 };
