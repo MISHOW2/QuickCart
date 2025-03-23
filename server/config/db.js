@@ -1,21 +1,55 @@
 const products = [
   {
     id: 1,
-    picture: "/images/t-shirt-1.avif",
+    picture: "/images/shirts/shirt1.png",  
     name: "Black T-Shirt",
-    price: 59.99,
+    price: 2000,
     category: "shirts",
     stock: 15,
     description: "High-quality black shirt.",
-  },
-  {
+  },{
     id: 2,
-    picture: "/images/t-shirt-2.avif", // Changed image to avoid duplicate product
-    name: "White T-Shirt",
-    price: 49.99, // Changed price to differentiate products
+    picture: "/images/shirts/t-shirt-1.avif", 
+    name: "Circle T-Shirt",
+    price: 2000,
     category: "shirts",
-    stock: 10,
-    description: "Premium white t-shirt.",
+    stock: 15,
+    description: "High-quality black shirt.",
+  },{
+    id: 1,
+    picture: "/images/shirts/shirt1.png",  
+    name: "Black T-Shirt",
+    price: 2000,
+    category: "shirts",
+    stock: 15,
+    description: "High-quality black shirt.",
+  }
+  ,{
+    id: 1,
+    picture: "/images/shirts/shirt1.png",  
+    name: "Black T-Shirt",
+    price: 2000,
+    category: "shirts",
+    stock: 15,
+    description: "High-quality black shirt.",
+  }
+  ,{
+    id: 1,
+    picture: "/images/shirts/shirt1.png",  
+    name: "Black T-Shirt",
+    price: 2000,
+    category: "shirts",
+    stock: 15,
+    description: "High-quality black shirt.",
+  }
+  ,{
+    id: 1,
+    picture: "/images/shirts/shirt1.png",  
+    name: "Black T-Shirt",
+    price: 2000,
+    category: "shirts",
+    stock: 15,
+    description: "High-quality black shirt.",
   }
 ];
 
