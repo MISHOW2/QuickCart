@@ -1,10 +1,12 @@
+
 import axios from "axios";
 
-const url = "http://localhost:5000/api/products";
+const url = "https://server-nine-beta-37.vercel.app/api/products";
 
 export const getAllProducts = async () => {
   try {
     const response = await axios.get(url);
+    console.log(response.data); 
     return response.data; 
   } catch (error) {
     console.error("Error fetching products:", error);
