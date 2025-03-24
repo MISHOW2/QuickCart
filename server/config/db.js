@@ -1,75 +1,68 @@
+// Fake database for products and cart
 const products = [
   {
     id: 1,
-    picture: "/images/shirts/t-shirt-1.avif",
-    name: "Classic Black Tee",
+    picture: "/images/shirts/t-shirt-1.avif",  // Path is relative to public directory
+    name: "Black T-Shirt",
     price: 2000,
-    category: "shirts",
+    category: "shirts",  // 'category' field with values 'shirts' or 'shoes'
     stock: 15,
-    description: "A timeless black t-shirt made from premium cotton.",
+    description: "High-quality black shirt.",
   },
   {
     id: 2,
-    picture: "/images/shirts/t-shirt1.png",
-    name: "Jet Black Crew Neck",
-    price: 2000,
-    category: "shirts",
-    stock: 15,
-    description: "Sleek and stylish black crew neck for everyday wear.",
+    picture: "/images/shirts/t-shirt-2.avif",
+    name: "Blue T-Shirt",
+    price: 1500,
+    category: "shirts",  // This is a shirt
+    stock: 20,
+    description: "Comfortable blue shirt.",
   },
   {
     id: 3,
-    picture: "/images/shirts/t-shirt-2.avif",
-    name: "Urban Fit T-Shirt",
-    price: 2000,
-    category: "shirts",
-    stock: 15,
-    description: "A modern-fit t-shirt for a trendy and comfortable look.",
+    picture: "/images/shirts/t-shirt-circles-blue.avif",
+    name: "Red T-Shirt",
+    price: 1800,
+    category: "shirts",  // Another shirt
+    stock: 10,
+    description: "Stylish red shirt.",
   },
   {
     id: 4,
-    picture: "/images/shirts/t-shirt-circles-blue.avif",
-    name: "Blue Patterned Tee",
-    price: 2000,
-    category: "shirts",
-    stock: 15,
-    description: "Stylish blue t-shirt with a unique circular pattern.",
+    picture: "/images/shoes/shoe1.png",
+    name: "Running Shoes",
+    price: 2500,
+    category: "shoes",  // This is a shoe
+    stock: 12,
+    description: "Comfortable running shoes.",
   },
   {
     id: 5,
-    picture: "/images/shoes/shoe1.png",
-    name: "Midnight Runner Sneakers",
-    price: 2000,
-    category: "shoes",
-    stock: 15,
-    description: "Sleek and lightweight sneakers perfect for running.",
+    picture: "/images/shoes/shoe2.png",
+    name: "Casual Shoes",
+    price: 2200,
+    category: "shoes",  // Another shoe
+    stock: 8,
+    description: "Casual shoes for everyday use.",
   },
   {
     id: 6,
-    picture: "/images/shoes/shoe2.png",
-    name: "Retro High-Tops",
-    price: 2000,
-    category: "shoes",
-    stock: 15,
-    description: "Classic high-top sneakers with a retro design.",
-  },
-  {
-    id: 7,
     picture: "/images/shoes/shoe3.png",
-    name: "Street Style Trainers",
-    price: 2000,
-    category: "shoes",
-    stock: 15,
-    description: "Casual yet stylish trainers for everyday fashion.",
+    name: "Casual Shoes",
+    price: 2200,
+    category: "shoes",  // Another shoe
+    stock: 8,
+    description: "Casual shoes for everyday use.",
   },
 ];
 
 const cart = [
   {
-    id: 101, // Unique cart item ID
-    productId: 1, // Referencing `products.id`
-    quantity: 2, // Quantity instead of stock
-  }
+    id: 101,  // Unique cart item ID
+    productId: 1,  // Referencing `products.id`
+    quantity: 2,  // Quantity instead of stock
+  },
 ];
 
-module.exports = { cart, products };
+// Export the data
+module.exports = { products, cart };

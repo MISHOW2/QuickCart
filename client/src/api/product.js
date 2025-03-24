@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "https://server-nine-beta-37.vercel.app/api/products";
+const url = "https://quick-cart-api-tau.vercel.app/api/products";
 
 export const getAllProducts = async () => {
   try {

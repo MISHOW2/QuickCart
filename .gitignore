@@ -31,3 +31,4 @@ Thumbs.db
 
 # React-Specific
 *.env.local
+.qodo
