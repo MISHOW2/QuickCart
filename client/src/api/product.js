@@ -1,4 +1,3 @@
-
 import axios from "axios";
 
 const url = "https://server-nine-beta-37.vercel.app/api/products";
