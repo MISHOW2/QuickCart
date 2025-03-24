@@ -1,4 +1,3 @@
-.qodo
 # Node.js dependencies
 node_modules/
 package-lock.json
@@ -7,12 +6,10 @@ package-lock.json
 .env
 .vercel
 vercel.json
+
 # Logs
 logs/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # Build files
 dist/
@@ -34,4 +31,3 @@ Thumbs.db
 
 # React-Specific
 *.env.local
-
