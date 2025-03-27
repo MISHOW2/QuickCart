@@ -1,23 +1,18 @@
 import axios from "axios";
 
-const url = "http://localhost:5000/api/products";
+const url = "https://quick-cart-api-eta.vercel.app/api";
 
 export const getAllProducts = async () => {
   try {
-    const response = await axios.get(url);
-    const products = response.data.map((product) => ({
-      ...product,
-      picture: product.picture.startsWith("http")
-        ? product.picture
-        : `http://localhost:5000/${product.picture}`,
-    }));
-    console.log("Fetched Products:", products);
-    return products;
+    const response = await axios.get(`${url}/products`);
+    console.log("Fetched Products:", response.data);
+    return response.data; // Directly return data without modifying picture URLs
   } catch (error) {
     console.error("Error fetching products:", error);
     return [];
   }
 };
+
 
 export const getProductById = async (id) => {
   try {
@@ -32,9 +27,8 @@ export const getProductById = async (id) => {
 export const addToCart = async (productId) => {
   try {
     const response = await axios.post(
-      "http://localhost:5000/api/cart",
+      `${url}/addToCart`,
       { id: productId },
-      { headers: { "Content-Type": "application/json" } } // Ensure JSON format
     );
     return response.data;
   } catch (error) {

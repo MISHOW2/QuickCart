@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { getAllProducts, addToCart } from "../api/product";
 import "../styles/displayProducts.css";
-
+import ProductSkeleton from "./ProductSkeleton";
 function DisplayProducts() {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,14 +19,28 @@ function DisplayProducts() {
     fetchProducts();
   }, []);
 
-  if (!products.length) return <p>Loading products...</p>;
+  const handleAddToCart = async (productId) => {
+   
+    try {
+      const response = await addToCart(productId);
+      if (response && response.success) {
+        console.log("Item added to cart:", response.cart);
+        setCart(response.cart); // Update cart state
+      } else {
+        console.error("Failed to add item to cart");
+      }
+    } catch (error) {
+      console.error("Could not add item to cart", error);
+    }
+  };
+  
+
+  if (!products.length) return <ProductSkeleton />;
+
 
   const featuredProduct = products[0];
 
-  const handleAddToCart = async (productId) => {
-    console.log(`Adding product with ID ${productId} to cart`);
-    await addToCart(productId);
-  };
+  
 
   return (
     <div className="product-container">
