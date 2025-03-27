@@ -20,7 +20,7 @@ const products = [
   },
   {
     id: 3,
-    picture: "https://quick-cart-api-eta.vercel.app/images/shirts/t-shirt-circles-blue.avif",
+    picture: "https://quick-cart-api-eta.vercel.app/images/shirts/t-shirt-spiral-1.avif",
     name: "Puma Streetwear Tee",
     price: 1800,
     category: "shirts",
