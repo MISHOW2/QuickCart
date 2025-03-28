@@ -5,6 +5,7 @@ package-lock.json
 # Environment Variables
 .env
 .vercel
+
 vercel.json
 
 # Logs
