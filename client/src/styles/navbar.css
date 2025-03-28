@@ -48,7 +48,7 @@ ul{
 
 
 .cartIcon{
-  width: 50;
+  width: 50px;
   height: 26px;
   display: flex;
   align-items: center;
@@ -56,5 +56,16 @@ ul{
   border : 1px solid white;
   padding: 10px;
   border-radius: 17px;
+  cursor: pointer;
 }
 
+.cart-icon{
+  width: 30px;
+}
+
+a{
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}

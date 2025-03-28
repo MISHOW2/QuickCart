@@ -1,15 +1,20 @@
-
-import './App.css'
-import DisplayProducts from './components/DisplayProducts'
-import NavBar from './components/NavBar'
+import './App.css';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import Home from './pages/Home';
+import Products from './pages/Products';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
-    <div className='app'>
-      <NavBar/>
-      <DisplayProducts/>
-    </div>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />}>
+          <Route index element={<Dashboard/>} /> 
+          <Route path='/products' element={<Products />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
