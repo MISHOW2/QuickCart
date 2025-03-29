@@ -6,7 +6,7 @@ export const getAllProducts = async () => {
   try {
     const response = await axios.get(`${url}/products`);
     console.log("Fetched Products:", response.data);
-    return response.data; // Directly return data without modifying picture URLs
+    return response.data; 
   } catch (error) {
     console.error("Error fetching products:", error);
     return [];
