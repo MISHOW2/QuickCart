@@ -3,7 +3,7 @@ import { getAllProducts,addToCart } from '../api/product';
 import '../styles/displayProducts.css';
 function DisplayProducts() {
   const [products, setProducts] = useState([]);
-  const [cartItems,setCartItems] = useState(null)
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -18,17 +18,7 @@ function DisplayProducts() {
   }, []);
 
   
-  useEffect(() => {
-    const handleAddToCart = async () => {
-      try {
-       const response = await addToCart()
-      } catch (error) {
-       
-      }
-    };
-    
-    fetchProducts();
-  }, []);
+ 
 
   return (
     <div className='products'>
@@ -38,7 +28,7 @@ function DisplayProducts() {
             <img src={product.picture} alt={product.name} />
             <p>{product.name}</p>
             <p>${product.price}</p>
-            <button onClick={handleAddToCart}>ADD TO CART</button>
+            <button>ADD TO CART</button>
           </div>
         ))
       ) : (
