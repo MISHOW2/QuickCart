@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "https://quick-cart-api-eta.vercel.app/api";
+const url = "http://localhost:5000/api";
 
 export const getAllProducts = async () => {
   try {
@@ -26,15 +26,16 @@ export const getProductById = async (id) => {
 
 export const addToCart = async (productId) => {
   try {
-    const response = await axios.post(
-      `${url}/addToCart`,
-      { id: productId },
-    );
-    return response.data;
+    const response = await axios.post(`${url}/addToCart`, { id: productId });
+    return response.data; // Ensure we return `{ success, msg, cart }`
   } catch (error) {
     console.error("Error adding item to cart:", error);
-    return null;
+    return { success: false, msg: "Error adding item", cart: [] }; // Return an empty cart instead of `null`
   }
 };
 
 
+
+export const editCartItemQuantity = ()=>{
+  
+}

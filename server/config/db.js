@@ -44,11 +44,8 @@ const products = [
 
 
 const cart = [
-  {
-    id: 101,  // Unique cart item ID
-    productId: 1,  // Referencing `products.id`
-    quantity: 2,  // Quantity instead of stock
-  },
+  
+  
 ];
 
 // Export the data

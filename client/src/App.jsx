@@ -3,10 +3,11 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Dashboard from './pages/Dashboard';
-
+import CartContextProvider from './context/cartContextProvider';
 function App() {
   return (
-    <BrowserRouter>
+    <CartContextProvider>
+      <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />}>
           <Route index element={<Dashboard/>} /> 
@@ -14,6 +15,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </CartContextProvider>
   );
 }
 

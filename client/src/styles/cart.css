@@ -1,12 +1,13 @@
 .cart {
-  width: 324px;
+  width: 424px;
   height: 567px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.966);
   position: fixed; /* Use fixed to prevent affecting navbar width */
   right: 0;
   top: 0; /* Start from the top */
   padding: 40px;
   display: flex;
+  gap: 100px;
   flex-direction: column;
   box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2); /* Add shadow for better UI */
 
@@ -50,7 +51,7 @@ body.no-scroll {
   cursor: pointer;
 }
 
-.cart-items {
+.empty-cart{
   margin-top: 100px;
   display: flex;
   flex-direction: column;
@@ -60,4 +61,75 @@ body.no-scroll {
 .cart-items p {
   font-size: 30px;
   color: rgba(255, 255, 255, 0.777);
+}
+.cart-items {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  max-height: 300px; /* Set a fixed or max height */
+  overflow-y: auto; /* Enables vertical scrolling */
+  padding-right: 10px; /* Prevents content from hiding behind scrollbar */
+}
+
+/* Optional: Customize scrollbar */
+.cart-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cart-items::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.cart-items::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.cart-item{
+  display: flex;
+  gap: 35px;
+
+}
+.cart-item img{
+  width: 98px;;
+  height: 99px;
+}
+
+.cart-item p{
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.price-quantity{
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  gap: 20px;
+}
+.quantity{
+  display: flex;
+  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.459);
+  border-radius: 15px;
+  width: 100px;
+  justify-content: space-around;
+  text-align: right;
+}
+
+
+
+.picture-container{
+
+width: 99px;
+height: 90px;
+background-color: #1E1E1E;
+padding: 10px;
+}
+.quantity button{
+  border:none;
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+  font-weight: 100;
+  cursor: pointer;
 }
