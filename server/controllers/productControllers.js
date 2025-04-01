@@ -40,10 +40,22 @@ const addToCart = (req, res) => {
         id: uuidv4(), // Unique cart item ID
         productId: product.id,
         quantity: 1,
+        price: product.price, // Store product price
       });
     }
 
-    res.json({ success: true, msg: "Item added to cart", cart: getCartDetails() });
+    // Calculate total cart price
+    const totalCartPrice = cart.reduce((total, item) => {
+      const itemPrice = products.find((p) => p.id === item.productId)?.price || 0;
+      return total + item.quantity * itemPrice;
+    }, 0);
+
+    res.json({
+      success: true,
+      msg: "Item added to cart",
+      cart: getCartDetails(),
+      totalPrice: totalCartPrice,
+    });
 
   } catch (error) {
     console.error(error);
@@ -90,6 +102,7 @@ const deleteAllCartItems = (req, res) => {
 
   res.json({ success: true, msg: "All items removed from cart", cart });
 };
+
 
 // Helper function to get full cart details with product info
 const getCartDetails = () => {
