@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef } from "react";
 import "../styles/cart.css";
 import closeIcon from "../assets/icons/icons8-close-30.png";
+import removeItemIcon from "../assets/icons/icons8-close-30.png";
 import cartIcon from "../assets/icons/icons8-shopping-cart-30.png";
 import CartContext from "../context/cartContext";
 import { removeItem } from "../api/product";
@@ -31,6 +32,8 @@ function Cart({ closeCart, openCart }) {
   const handleDelete = async (productId) => {
     const updatedCart = await removeItem(productId);
     if (updatedCart) {
+      console.log(updatedCart);
+      
       setCart(updatedCart); // Update cart context after deletion
     }
   };
@@ -54,6 +57,9 @@ function Cart({ closeCart, openCart }) {
                   alt={item.product.name}
                   className="cart-item-image"
                 />
+                 <div className="removeItem" onClick={() => handleDelete(item.product.id)}>
+                  <img src={removeItemIcon}  alt="" className="" />
+                 </div>
               </div>
               <div>
                 <p>{item.product.name}</p>
@@ -65,7 +71,7 @@ function Cart({ closeCart, openCart }) {
                   <p>{item.quantity}</p>
                   <button>+</button>
                 </div>
-                <button onClick={() => handleDelete(item.product.id)}>x</button>
+              
               </div>
             </div>
           ))

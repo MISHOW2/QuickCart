@@ -119,11 +119,26 @@ body.no-scroll {
 
 
 .picture-container{
-
+position: relative;
 width: 99px;
 height: 90px;
 background-color: #1E1E1E;
 padding: 10px;
+}
+
+.removeItem {
+  position: absolute;
+  top: 10px;
+  cursor: pointer;
+  background-color: black;
+  padding: 4px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+.removeItem img{
+  width: 16px;
+  height: 16px;
 }
 .quantity button{
   border:none;
