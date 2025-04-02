@@ -20,6 +20,7 @@ function NavBar() {
     document.body.classList.remove('no-scroll'); // Restore scrolling
   };
 
+  
   return (
     <nav>
       <div className="logo-name">

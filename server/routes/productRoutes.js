@@ -23,6 +23,6 @@ router.put('/editCartItemQuantity/:id', editCartItemQuantity);
 // Delete cart items (use DELETE for removal)
 router.delete('/deleteAllCartItems', deleteAllCartItems);
 
-router.delete('/deleteCartItem/:id', deleteCartItemById)
+router.delete('/deleteCartItem', deleteCartItemById)
 
 module.exports = router;

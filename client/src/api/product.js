@@ -27,15 +27,35 @@ export const getProductById = async (id) => {
 export const addToCart = async (productId) => {
   try {
     const response = await axios.post(`${url}/addToCart`, { id: productId });
-    return response.data; // Ensure we return `{ success, msg, cart }`
+    if (response.data.success) {
+      return {
+        cart: response.data.cart,
+        totalPrice: response.data.totalPrice, // Store the total price
+      };
+    }
+    return { cart: [], totalPrice: 0 }; // Default values
   } catch (error) {
     console.error("Error adding item to cart:", error);
-    return { success: false, msg: "Error adding item", cart: [] }; // Return an empty cart instead of `null`
+    return { cart: [], totalPrice: 0 };
   }
 };
 
 
 
-export const editCartItemQuantity = ()=>{
-  
-}
+export const removeItem = async (productId) => {
+  try {
+    const response = await axios.delete(`${url}/deleteCartItem`, {
+      data: { id: productId }, // Send ID in request body
+    });
+
+    if (response.data.success) {
+      return response.data.cart; // Return updated cart
+    }
+
+    console.error("Error removing item:", response.data.msg);
+    return null;
+  } catch (error) {
+    console.error("Failed to delete item:", error);
+    return null;
+  }
+};

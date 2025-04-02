@@ -82,19 +82,28 @@ const editCartItemQuantity = (req, res) => {
   res.json({ success: true, msg: "Cart item updated", cart: getCartDetails() });
 };
 
-// Delete a specific cart item by its cart ID
+// Delete a single item from the cart
 const deleteCartItemById = (req, res) => {
-  const { id } = req.params; // Get cart item ID from request params
-  const index = cart.findIndex((item) => item.id === id);
+  const { id } = req.body; // Extract ID from the body
+  console.log("DELETE request received. ID:", id); // Debugging
+
+  // Find the item in the cart based on productId (change as needed)
+  const index = cart.findIndex((item) => item.productId === id); // Ensure cart structure is consistent
 
   if (index === -1) {
     return res.status(404).json({ success: false, msg: "Cart item not found" });
   }
 
-  cart.splice(index, 1); // Remove item from cart
+  // Remove the item from the cart
+  cart.splice(index, 1);
 
-  res.json({ success: true, msg: "Item removed from cart", cart: getCartDetails() });
+  return res.json({
+    success: true,
+    msg: "Item removed from cart",
+    cart: getCartDetails(), // Return updated cart details
+  });
 };
+
 
 // Delete all items from the cart
 const deleteAllCartItems = (req, res) => {

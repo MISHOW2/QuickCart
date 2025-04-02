@@ -3,9 +3,10 @@ import "../styles/cart.css";
 import closeIcon from "../assets/icons/icons8-close-30.png";
 import cartIcon from "../assets/icons/icons8-shopping-cart-30.png";
 import CartContext from "../context/cartContext";
+import { removeItem } from "../api/product";
 
 function Cart({ closeCart, openCart }) {
-  const { cart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext); // Ensure setCart is included
 
   const cartRef = useRef(null);
 
@@ -25,6 +26,14 @@ function Cart({ closeCart, openCart }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [openCart, closeCart]);
+
+  // Handle delete function
+  const handleDelete = async (productId) => {
+    const updatedCart = await removeItem(productId);
+    if (updatedCart) {
+      setCart(updatedCart); // Update cart context after deletion
+    }
+  };
 
   return (
     <div ref={cartRef} className={`cart ${openCart ? "open" : ""}`}>
@@ -56,6 +65,7 @@ function Cart({ closeCart, openCart }) {
                   <p>{item.quantity}</p>
                   <button>+</button>
                 </div>
+                <button onClick={() => handleDelete(item.product.id)}>x</button>
               </div>
             </div>
           ))
@@ -71,7 +81,6 @@ function Cart({ closeCart, openCart }) {
         )}
       </div>
 
-     
       {cart && cart.length > 0 && <button className="checkout-btn">Checkout</button>}
     </div>
   );
