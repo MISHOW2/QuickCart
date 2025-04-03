@@ -7,9 +7,25 @@ import CartContext from "../context/cartContext";
 import { removeItem } from "../api/product";
 
 function Cart({ closeCart, openCart }) {
-  const { cart, setCart } = useContext(CartContext); // Ensure setCart is included
-
+  const { cart, setCart } = useContext(CartContext);
   const cartRef = useRef(null);
+
+  // Load cart from localStorage on mount
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, [setCart]);
+
+  // Save cart to localStorage when it changes
+  useEffect(() => {
+    if (cart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } else {
+      localStorage.removeItem("cart"); // Remove empty cart
+    }
+  }, [cart]);
 
   // Close cart when clicking outside
   useEffect(() => {
@@ -32,9 +48,8 @@ function Cart({ closeCart, openCart }) {
   const handleDelete = async (productId) => {
     const updatedCart = await removeItem(productId);
     if (updatedCart) {
-      console.log(updatedCart);
-      
-      setCart(updatedCart); // Update cart context after deletion
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update localStorage
     }
   };
 
@@ -57,9 +72,9 @@ function Cart({ closeCart, openCart }) {
                   alt={item.product.name}
                   className="cart-item-image"
                 />
-                 <div className="removeItem" onClick={() => handleDelete(item.product.id)}>
-                  <img src={removeItemIcon}  alt="" className="" />
-                 </div>
+                <div className="removeItem" onClick={() => handleDelete(item.product.id)}>
+                  <img src={removeItemIcon} alt="" className="" />
+                </div>
               </div>
               <div>
                 <p>{item.product.name}</p>
@@ -71,23 +86,22 @@ function Cart({ closeCart, openCart }) {
                   <p>{item.quantity}</p>
                   <button>+</button>
                 </div>
-              
               </div>
             </div>
           ))
         ) : (
           <div className="empty-cart">
-            <img
-              src={cartIcon}
-              alt="Shopping Cart"
-              className="ShoppingcartIcon"
-            />
+            <img src={cartIcon} alt="Shopping Cart" className="ShoppingcartIcon" />
             <p>Your Cart Is Empty</p>
           </div>
         )}
       </div>
 
-      {cart && cart.length > 0 && <button className="checkout-btn">Checkout</button>}
+      {cart && cart.length > 0 && (
+        <button className="checkout-btn">
+          CHECKOUT R {cart.reduce((acc, item) => acc + item.product.price, 0)}
+        </button>
+      )}
     </div>
   );
 }
