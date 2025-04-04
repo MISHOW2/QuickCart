@@ -59,3 +59,26 @@ export const removeItem = async (productId) => {
     return null;
   }
 };
+
+
+export const editCartItemQty = async (productId, change) => {
+  console.log("Updating quantity for:", productId, "Change:", change); // Debugging
+  try {
+    const response = await axios.put(`${url}/editCartItemQuantity`, {
+      id: productId,
+      change, // Ensure this is a number
+    });
+
+    if (response.data.success) {
+      return response.data.cart;
+    }
+
+    console.error("Error updating quantity:", response.data.msg);
+    return null;
+  } catch (error) {
+    console.error("Failed to update quantity:", error);
+    return null;
+  }
+};
+
+

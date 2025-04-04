@@ -4,7 +4,7 @@ import closeIcon from "../assets/icons/icons8-close-30.png";
 import removeItemIcon from "../assets/icons/icons8-close-30.png";
 import cartIcon from "../assets/icons/icons8-shopping-cart-30.png";
 import CartContext from "../context/cartContext";
-import { removeItem } from "../api/product";
+import { removeItem, editCartItemQty } from "../api/product";
 
 function Cart({ closeCart, openCart }) {
   const { cart, setCart } = useContext(CartContext);
@@ -52,6 +52,13 @@ function Cart({ closeCart, openCart }) {
       localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update localStorage
     }
   };
+  const handleQuantity = async (productId, newQuantity) => {
+    const updatedCart = await editCartItemQty(productId, newQuantity);
+    if (updatedCart) {
+      setCart(updatedCart); // Update cart state
+      localStorage.setItem("cart", JSON.stringify(updatedCart)); // Persist cart
+    }
+  };
 
   return (
     <div ref={cartRef} className={`cart ${openCart ? "open" : ""}`}>
@@ -82,10 +89,11 @@ function Cart({ closeCart, openCart }) {
               <div className="price-quantity">
                 <p className="price">R {item.product.price}</p>
                 <div className="quantity">
-                  <button>-</button>
+                  <button onClick={() => handleQuantity(item.product.id, item.quantity - 1)}>-</button>
                   <p>{item.quantity}</p>
-                  <button>+</button>
+                  <button onClick={() => handleQuantity(item.product.id, item.quantity + 1)}>+</button>
                 </div>
+
               </div>
             </div>
           ))

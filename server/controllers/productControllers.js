@@ -63,9 +63,12 @@ const addToCart = (req, res) => {
   }
 };
 
-// Edit Cart Item Quantity
 const editCartItemQuantity = (req, res) => {
-  const { id, change } = req.body;
+  console.log("Received request to update quantity:", req.body); // Debugging
+
+  const id = Number(req.body.id); // Convert to number
+  const { change } = req.body;
+
   const cartItem = cart.find((item) => item.id === id);
 
   if (!cartItem) {

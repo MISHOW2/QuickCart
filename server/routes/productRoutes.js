@@ -18,7 +18,8 @@ router.get('/products/:id', getProductById);
 router.post('/addToCart', addToCart);
 
 // Edit cart item (use PUT or PATCH for updates)
-router.put('/editCartItemQuantity/:id', editCartItemQuantity);
+router.put('/editCartItemQuantity', editCartItemQuantity);
+
 
 // Delete cart items (use DELETE for removal)
 router.delete('/deleteAllCartItems', deleteAllCartItems);
