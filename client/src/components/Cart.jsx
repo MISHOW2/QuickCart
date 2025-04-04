@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../styles/cart.css";
 import closeIcon from "../assets/icons/icons8-close-30.png";
 import removeItemIcon from "../assets/icons/icons8-close-30.png";
@@ -8,6 +8,7 @@ import { removeItem, editCartItemQty } from "../api/product";
 
 function Cart({ closeCart, openCart }) {
   const { cart, setCart } = useContext(CartContext);
+  const [checkoutSuccess, setCheckoutSuccess] = useState(false); // Track checkout success
   const cartRef = useRef(null);
 
   // Load cart from localStorage on mount
@@ -52,12 +53,30 @@ function Cart({ closeCart, openCart }) {
       localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update localStorage
     }
   };
-  const handleQuantity = async (productId, newQuantity) => {
-    const updatedCart = await editCartItemQty(productId, newQuantity);
+
+  // Handle quantity change
+  const handleQuantity = async (productId, change) => {
+    const updatedCart = await editCartItemQty(productId, change); // change = -1 or +1
     if (updatedCart) {
-      setCart(updatedCart); // Update cart state
-      localStorage.setItem("cart", JSON.stringify(updatedCart)); // Persist cart
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
+  };
+
+  // Calculate total price for the cart
+  const getTotalPrice = () => {
+    return cart.reduce((acc, item) => {
+      return acc + item.product.price * item.quantity; // Multiply price by quantity
+    }, 0);
+  };
+
+  // Handle checkout
+  const handleCheckout = () => {
+    // Simulate a successful checkout process (e.g., make an API call)
+    // On success:
+    setCheckoutSuccess(true);
+    setCart([]); // Clear the cart
+    localStorage.removeItem("cart"); // Clear localStorage
   };
 
   return (
@@ -87,13 +106,17 @@ function Cart({ closeCart, openCart }) {
                 <p>{item.product.name}</p>
               </div>
               <div className="price-quantity">
-                <p className="price">R {item.product.price}</p>
+                <p className="price">R {item.product.price * item.quantity}</p> {/* Updated price */}
                 <div className="quantity">
-                  <button onClick={() => handleQuantity(item.product.id, item.quantity - 1)}>-</button>
+                  <button
+                    onClick={() => handleQuantity(item.product.id, -1)}
+                    disabled={item.quantity <= 1}
+                  >
+                    -
+                  </button>
                   <p>{item.quantity}</p>
-                  <button onClick={() => handleQuantity(item.product.id, item.quantity + 1)}>+</button>
+                  <button onClick={() => handleQuantity(item.product.id, 1)}>+</button>
                 </div>
-
               </div>
             </div>
           ))
@@ -106,8 +129,8 @@ function Cart({ closeCart, openCart }) {
       </div>
 
       {cart && cart.length > 0 && (
-        <button className="checkout-btn">
-          CHECKOUT R {cart.reduce((acc, item) => acc + item.product.price, 0)}
+        <button className="checkout-btn" onClick={handleCheckout}>
+          {checkoutSuccess ?`CHECKOUT R ${getTotalPrice()}`: "Success" } {/* Change button text */}
         </button>
       )}
     </div>

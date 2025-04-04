@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import cartIcon from '../assets/icons/icons8-shopping-cart-30.png';
 import logo from '../assets/icons/icons8-fast-cart-30.png';
 import '../styles/navbar.css';
 import { Link } from 'react-router-dom';
 import Cart from './Cart';
+import CartContext from '../context/cartContext';
 
 function NavBar() {
   const [openCart, setOpenCart] = useState(false);
+  const { cart } = useContext(CartContext);
+
+  // Calculate the total number of items in the cart
+  const totalItemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
 
   // Function to open cart and prevent scrolling
   const handleOpenCart = () => {
@@ -20,7 +25,6 @@ function NavBar() {
     document.body.classList.remove('no-scroll'); // Restore scrolling
   };
 
-  
   return (
     <nav>
       <div className="logo-name">
@@ -41,6 +45,12 @@ function NavBar() {
       <div className="cart-container">
         <div className="cartIcon" onClick={handleOpenCart}> 
           <img src={cartIcon} alt="Cart Icon" className="cart-icon" />
+          {/* Show the number of items in the cart if there are any */}
+          {totalItemsInCart > 0 && (
+            <div className="cart-item-count">
+              {totalItemsInCart}
+            </div>
+          )}
         </div>
         <Cart openCart={openCart} closeCart={handleCloseCart} /> {/* Pass state */}
       </div>

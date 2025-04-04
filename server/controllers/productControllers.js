@@ -21,7 +21,6 @@ const getProductById = (req, res) => {
   res.json({ product });
 };
 
-// Add to cart
 const addToCart = (req, res) => {
   const { id } = req.body;
   const product = products.find((p) => p.id === Number(id));
@@ -34,13 +33,13 @@ const addToCart = (req, res) => {
     const cartItem = cart.find((item) => item.productId === Number(id));
 
     if (cartItem) {
-      cartItem.quantity += 1;
+      cartItem.quantity += 1;  // If item exists, increase quantity by 1
     } else {
       cart.push({
         id: uuidv4(), // Unique cart item ID
         productId: product.id,
         quantity: 1,
-        price: product.price, // Store product price
+        price: product.price, // Store product price in cart
       });
     }
 
@@ -53,8 +52,8 @@ const addToCart = (req, res) => {
     res.json({
       success: true,
       msg: "Item added to cart",
-      cart: getCartDetails(),
-      totalPrice: totalCartPrice,
+      cart: getCartDetails(),  // Return updated cart
+      totalPrice: totalCartPrice,  // Return total cart price
     });
 
   } catch (error) {
@@ -64,25 +63,38 @@ const addToCart = (req, res) => {
 };
 
 const editCartItemQuantity = (req, res) => {
-  console.log("Received request to update quantity:", req.body); // Debugging
+  console.log("Received request to update quantity:", req.body); // Debug
 
-  const id = Number(req.body.id); // Convert to number
+  const id = Number(req.body.id); // Convert string to number
   const { change } = req.body;
 
-  const cartItem = cart.find((item) => item.id === id);
+  const cartItem = cart.find((item) => item.productId === id);  // Match using productId
 
   if (!cartItem) {
     return res.status(404).json({ success: false, msg: "Cart item not found" });
   }
 
   const newQuantity = cartItem.quantity + Number(change);
+
+  // Prevent quantity from going below 1
   if (newQuantity < 1) {
     return res.json({ success: false, msg: "Quantity cannot be less than 1" });
   }
 
-  cartItem.quantity = newQuantity;
+  cartItem.quantity = newQuantity;  // Update quantity
 
-  res.json({ success: true, msg: "Cart item updated", cart: getCartDetails() });
+  // Calculate total cart price
+  const totalCartPrice = cart.reduce((total, item) => {
+    const itemPrice = products.find((p) => p.id === item.productId)?.price || 0;
+    return total + item.quantity * itemPrice;
+  }, 0);
+
+  res.json({
+    success: true,
+    msg: "Cart item updated",
+    cart: getCartDetails(),  // Return updated cart
+    totalPrice: totalCartPrice,  // Return total cart price
+  });
 };
 
 // Delete a single item from the cart
